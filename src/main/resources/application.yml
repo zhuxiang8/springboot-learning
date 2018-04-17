@@ -1,0 +1,101 @@
+#app
+server:
+    port: 8080
+
+#spring
+spring:
+  devtools:
+    restart:
+      enabled: false
+
+  # mysql数据源配置
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/smart?zeroDateTimeBehavior=convertToNull&useUnicode=true&amp;characterEncoding=utf-8&allowMultiQueries=true&tinyInt1isBit=false
+    username: root
+    password: 1234
+    initialization-mode: never
+    schema: classpath:/db/schema.sql
+    driver-class-name: com.mysql.jdbc.Driver
+    data: classpath:/db/data.sql
+#    continue-on-error: false
+
+  # 初始化时建立物理连接的个数
+    initialSize: 1
+    minIdle: 3
+    maxActive: 20
+  # 配置获取连接等待超时的时间
+    maxWait: 60000
+  # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 60000
+  # 配置一个连接在池中最小生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 30000
+  # 验证连接有效与否的SQL，不同的数据配置不同
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+  # 打开PSCache，并且指定每个连接上PSCache的大小
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+  # 属性类型是字符串，通过别名的方式配置扩展插件，
+  # 常用的插件有：
+  # 监控统计用的filter:stat
+  # 日志用的filter:log4j
+  # 防御sql注入的filter:wall
+    filters: stat,wall,slf4j
+  # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+  # 合并多个DruidDataSource的监控数据
+    useGlobalDataSourceStat: true
+
+  flyway:
+    enabled: true
+    url: jdbc:mysql://localhost:3306/flyway_test
+    user: root
+    password: 1234
+    check-location: true
+    locations: classpath:db/migration
+    validate-on-migrate: true
+    clean-on-validation-error: true
+    target: 1.1.0.2
+    baseline-on-migrate: true
+    baseline-version: 0.1.0.2
+    baseline-description: sdfs
+
+
+#mybatis
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*Mapper.xml
+  # 实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.springboot.learning.pojo.entity
+#  typeEnumsPackage: com.baomidou.springboot.entity.enums
+  global-config:
+  # 主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+    id-type: 0
+  # 字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+    field-strategy: 2
+  # 驼峰下划线转换
+    db-column-underline: true
+  # 刷新mapper 调试神器
+    refresh-mapper: true
+  # 数据库大写下划线转换
+    #capital-mode: true
+    #序列接口实现类配置,不在推荐使用此方式进行配置,请使用自定义bean注入
+#    key-generator: com.baomidou.mybatisplus.incrementer.H2KeyGenerator
+    #逻辑删除配置（下面3个配置）
+    logic-delete-value: 0
+    logic-not-delete-value: 1
+    #自定义sql注入器,不在推荐使用此方式进行配置,请使用自定义bean注入
+    sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
+    #自定义填充策略接口实现,不在推荐使用此方式进行配置,请使用自定义bean注入
+#    meta-object-handler: com.baomidou.springboot.MyMetaObjectHandler
+    #自定义SQL注入器
+    #sql-injector: com.baomidou.springboot.xxx
+    # SQL 解析缓存，开启后多租户 @SqlParser 注解生效
+    sql-parser-cache: true
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+#logging
+
