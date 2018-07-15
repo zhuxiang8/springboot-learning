@@ -3,15 +3,15 @@ package com.springboot.learning.common.base.controller.response;
 import java.util.List;
 
 /**
+ * @param <T>
  * @author
  * @date
- * @param <T>
  */
 public class AbstractPageResponse<T> extends AbstractResponse {
 
     private List<T> data;
     private long totalElements;
-   	
+
     public List<T> getData() {
         return data;
     }
@@ -30,6 +30,7 @@ public class AbstractPageResponse<T> extends AbstractResponse {
 
     public AbstractPageResponse() {
     }
+
     public AbstractPageResponse(List<T> data, long totalElements) {
         this.data = data;
         this.totalElements = totalElements;
@@ -41,12 +42,13 @@ public class AbstractPageResponse<T> extends AbstractResponse {
         this.totalElements = totalElements;
     }
 
-    public static AbstractPageResponse createSuccessResponse(String message){
+    public static AbstractPageResponse createSuccessResponse(String message) {
         return new AbstractPageResponse() {
             @Override
             public boolean isSuccess() {
                 return true;
             }
+
             @Override
             public String getMessage() {
                 return message;
@@ -54,12 +56,13 @@ public class AbstractPageResponse<T> extends AbstractResponse {
         };
     }
 
-    public static AbstractPageResponse createFailedResponse(String message){
+    public static AbstractPageResponse createFailedResponse(String message) {
         return new AbstractPageResponse() {
             @Override
             public boolean isSuccess() {
                 return false;
             }
+
             @Override
             public String getMessage() {
                 return message;
@@ -67,7 +70,7 @@ public class AbstractPageResponse<T> extends AbstractResponse {
         };
     }
 
-    public static AbstractPageResponse createSuccessResponse(String message, List data, long totalElements){
+    public static AbstractPageResponse createSuccessResponse(String message, List data, long totalElements) {
         return new AbstractPageResponse() {
             @Override
             public boolean isSuccess() {
@@ -91,7 +94,7 @@ public class AbstractPageResponse<T> extends AbstractResponse {
         };
     }
 
-    public static AbstractPageResponse createFailedResponse(String message, List data, long totalElements){
+    public static AbstractPageResponse createFailedResponse(String message, List data, long totalElements) {
         return new AbstractPageResponse() {
             @Override
             public boolean isSuccess() {

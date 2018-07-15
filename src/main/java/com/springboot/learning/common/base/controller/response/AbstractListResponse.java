@@ -3,9 +3,9 @@ package com.springboot.learning.common.base.controller.response;
 import java.util.List;
 
 /**
+ * @param <T>
  * @author
  * @date
- * @param <T>
  */
 public abstract class AbstractListResponse<T> extends AbstractResponse {
 

@@ -23,7 +23,7 @@
         u.user_name,
         u.user_num,
         u.phone_num,
-        r.id        AS "role.id",
+        r.id AS "role.id",
         r.role_name AS "role.role_name"
         FROM user u
         LEFT JOIN user_role ur ON u.id = ur.user_id

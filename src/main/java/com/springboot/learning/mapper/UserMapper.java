@@ -11,5 +11,5 @@ import java.util.List;
  * @Date 2018/4/2 15:03
  */
 public interface UserMapper extends BaseMapper<User> {
-   List<User> selectPageByMap();
+    List<User> selectPageByMap();
 }
